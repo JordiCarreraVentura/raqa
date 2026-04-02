@@ -6,3 +6,6 @@ environments/*
 
 # Python egg files
 src/raqa.egg-info/*
+
+# Python cache
+src/raqa/__pycache__/*

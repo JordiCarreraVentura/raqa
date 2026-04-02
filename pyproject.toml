@@ -31,4 +31,4 @@ dependencies = [
 "GitHub repository" = "https://github.com"
 
 [project.scripts]
-raqa = "cli:app"
+raqa = "raqa.cli:app"
