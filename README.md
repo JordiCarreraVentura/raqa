@@ -2,8 +2,9 @@
 
 **[R]**etrieval-**[A]**ugmented **[Q]**uestion-**[A]**nswering
 
-# Usage
+Retrieval-augmented, pip-installable, CLI-based question answering over arbitrary document collections.
 
+# Usage
 
 ## Installation
 
