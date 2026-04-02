@@ -5,4 +5,5 @@ openai
 python-frontmatter
 sentence-transformers
 tqdm
+typer[all]
 twine
