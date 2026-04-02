@@ -1,2 +1,8 @@
 build
+faiss-cpu
+numpy
+openai
+python-frontmatter
+sentence-transformers
+tqdm
 twine

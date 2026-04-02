@@ -15,7 +15,16 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
-dependencies = []  # as pip-installable strings
+dependencies = [
+  "build",
+  "faiss-cpu"
+  "numpy",
+  "openai",
+  "python-frontmatter",
+  "sentence-transformers",
+  "tqdm",
+  "twine"
+]
 
 [project.urls]
-"Google page" = "https://www.google.com"
+"GitHub repository" = "https://github.com"

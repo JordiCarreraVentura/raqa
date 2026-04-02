@@ -6,14 +6,56 @@
 
 ## Installation
 
+```
+pip install raqa
+```
+
+## Build database
+
+
+```
+from db import VectorDB
+from config import MARKDOWN_ROOT
+
+db = VectorDB()
+db.build(MARKDOWN_ROOT)
+```
+
+
 ## Run
+
+```
+from agent import RAGAgent
+
+agent = RAGAgent()
+agent.chat()
+```
 
 
 ## Build instructions
 
 Next steps:
 
-1. Building the package before uploading: 'python -m build' (from "raqa").
-2. Upload the package to pypi: 'python -m twine upload --repository {pypi|testpypi} dist/*'
-3. Install the package from pypi: 'python -m pip install --index-url {https://test.pypi.org/simple|https://pypi.org/simple} --no-deps raqa'
-4. If any dependencies are required, edit the `pyproject.toml` file, "\[project\]" field, and add a `dependencies` key with a `List\[str\]` value, where each string is a `pip`-readable dependency.
+1. If any changes are made, update `pyproject.toml`.
+2. Building the package before uploading:
+    `cd raqa; python -m build`.
+3. Upload the package to pypi:
+    `python -m twine upload --repository {pypi|testpypi} dist/*`
+
+## Next steps
+
+### Real tool-calling (instead of implicit RAG)
+
+Define OpenAI tool:
+
+```
+{
+  "name": "search_docs",
+  "description": "...",
+  "parameters": { "query": "string" }
+}
+```
+
+### Hybrid search
+
+Combine BM25 (rank-bm25) + embeddings
