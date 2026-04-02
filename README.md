@@ -89,6 +89,11 @@ agent.chat()
 
 Steps 2 and 3 can be done automatically by running `make publish`.
 
+## Related or comparable projects
+
+1. [PyRAG](https://pypi.org/project/PyRAG) difference: focuses on SingleStore.
+2. [ragger-simple](https://pypi.org/project/ragger-simple) difference: uses Qdrant and requires a Qdrant API key, in addition to an LLM API key. RAQA only requires the latter and uses an open-source tech stack for the rest.
+
 ## Next steps
 
 ### Real tool-calling (instead of implicit RAG)
