@@ -3,3 +3,6 @@ environments/*
 
 # System files
 .DS_Store
+
+# Python egg files
+src/raqa.egg-info/*

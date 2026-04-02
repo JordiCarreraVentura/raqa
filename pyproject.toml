@@ -10,19 +10,20 @@ authors = [
 ]
 description = ""
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.10"
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
 dependencies = [
   "build",
-  "faiss-cpu"
+  "faiss-cpu",
   "numpy",
   "openai",
   "python-frontmatter",
   "sentence-transformers",
   "tqdm",
+  "typer[all]",
   "twine"
 ]
 

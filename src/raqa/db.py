@@ -10,6 +10,7 @@ from sentence_transformers import SentenceTransformer
 from utils import split_sentences, window_chunks
 from config import *
 
+
 class VectorDB:
     def __init__(self):
         self.model = SentenceTransformer(EMBEDDING_MODEL)
@@ -68,6 +69,9 @@ class VectorDB:
             json.dump(self.metadata, f)
 
     def load(self):
+        if not (DATA_DIR / "index.faiss").exists():
+            raise FileNotFoundError(f"No database found at {DATA_DIR}. Please run build first.")
+
         self.index = faiss.read_index(str(DATA_DIR / "index.faiss"))
 
         with open(DATA_DIR / "meta.json", "r", encoding="utf-8") as f:
