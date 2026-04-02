@@ -4,14 +4,55 @@
 
 # Usage
 
+
 ## Installation
 
 ```
 pip install raqa
 ```
 
-## Build database
+**Locally**
 
+`pip install -e .`
+
+## Run
+
+### BASH via Python interpreter
+
+1. Build DB
+
+    `python cli.py build --path ./docs`
+
+2. Chat
+
+    `python cli.py chat`
+
+3. One-shot retrieval
+
+    `python cli.py search "what is retrieval augmented generation?"`
+
+4. Rebuild and chat
+
+    `python cli.py rebuild-and-chat`
+
+5. Get stats
+
+    `python cli.py stats`
+
+### BASH natively
+
+```
+raqa build --path ./markdown_files
+raqa chat
+raqa search "what is RAG?"
+raqa stats
+raqa rebuild-and-chat
+```
+
+
+## Python
+
+### Build database
 
 ```
 from db import VectorDB
@@ -21,8 +62,7 @@ db = VectorDB()
 db.build(MARKDOWN_ROOT)
 ```
 
-
-## Run
+### Run
 
 ```
 from agent import RAGAgent

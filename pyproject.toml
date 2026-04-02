@@ -28,3 +28,6 @@ dependencies = [
 
 [project.urls]
 "GitHub repository" = "https://github.com"
+
+[project.scripts]
+raqa = "cli:app"
