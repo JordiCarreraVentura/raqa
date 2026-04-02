@@ -1,6 +1,6 @@
 # RAQA
 
-**[R]**etrieval-**[A]**ugmented **[Q]**uestion-**[A]**nswering
+**R**etrieval-**A**ugmented **Q**uestion-**A**nswering
 
 Retrieval-augmented, pip-installable, CLI-based question answering over arbitrary document collections.
 
@@ -59,7 +59,7 @@ raqa rebuild-and-chat DATABASE_NAME PATH/TO/FOLDER/WITH/MARKDOWNS
 
 ## Python
 
-### Build database
+### Build database
 
 ```
 from db import VectorDB
@@ -89,7 +89,7 @@ Next steps:
 3. Upload the package to pypi:
     `python -m twine upload --repository {pypi|testpypi} dist/*`
 
-## Next steps
+## Next steps
 
 ### Real tool-calling (instead of implicit RAG)
 

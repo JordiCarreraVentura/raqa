@@ -6,9 +6,11 @@ environments/*
 
 # Python egg files
 src/raqa.egg-info/*
+dist/*
 
 # Python cache
 src/raqa/__pycache__/*
 
 # Credentials
 .env
+

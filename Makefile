@@ -11,7 +11,7 @@ VENV_NAME := environments/$(GIT_BRANCH)
 PY := $(VENV_NAME)/bin/python
 PYTHON_VERSION := 3.14.3
 
-# Load the .env file
+# Load environment variables from .env
 ifneq ("$(wildcard .env)","")
     include .env
     export $(shell sed 's/=.*//' .env)
@@ -39,9 +39,17 @@ check-env:
 install:
 	$(PY) -m pip install -r requirements.txt
 
-publish:
-	python -m build
-	python -m twine upload --repository pypi dist/* -u __token__ -p $(PYPI_TOKEN)
+build:
+	@echo "Cleaning old builds..."
+	rm -rf raqa/dist/ raqa/build/ raqa/*.egg-info
+	@echo "Building package in raqa/..."
+	$(PY) -m build
+
+# 4. Upload to official PyPI
+push:
+	$(PY) -m twine upload --repository pypi dist/* -u __token__ -p $(PYPI_TOKEN)
+
+publish: build push
 
 clean:
 	rm -rf __pycache__
