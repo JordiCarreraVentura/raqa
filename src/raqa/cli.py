@@ -13,19 +13,13 @@ app = typer.Typer(help="📚 Markdown RAG CLI")
 # ---------------------------
 @app.command()
 def build(
-    path: str = typer.Option(
-        MARKDOWN_ROOT,
-        help="Path to markdown folder"
-    )
+    db_name: str = typer.Argument(..., help="Name of the database to create"),
+    markdown_path: str = typer.Argument(MARKDOWN_ROOT, help="Path to markdown files")
 ):
-    """
-    Build vector database from markdown files.
-    """
-    db = VectorDB()
-    db.build(path)
-
-    typer.secho("✅ Database built successfully.", fg=typer.colors.GREEN)
-
+    """Build a database with a user-given name"""
+    db = VectorDB(db_name=db_name)
+    db.build(markdown_path)
+    typer.echo(f"✅ Database '{db_name}' built at {db.db_path}")
 
 # ---------------------------
 # SEARCH ONLY (DEBUG TOOL)
@@ -56,11 +50,14 @@ def search(
 # CHAT (MAIN ENTRYPOINT)
 # ---------------------------
 @app.command()
-def chat():
-    """
-    Start conversational RAG agent.
-    """
-    agent = RAGAgent()
+def chat(
+    db_name: str = typer.Argument("default", help="Database to use")
+):
+    """Start a chat using a specific database"""
+    db = VectorDB(db_name=db_name)
+    db.load()
+
+    agent = RAGAgent(db=db)  # modify RAGAgent to accept a db instance
     agent.chat()
 
 
@@ -69,20 +66,20 @@ def chat():
 # ---------------------------
 @app.command()
 def rebuild_and_chat(
-    path: str = typer.Option(
-        MARKDOWN_ROOT,
-        help="Markdown folder"
-    )
+    db_name: str = typer.Argument(..., help="Database name"),
+    markdown_path: str = typer.Argument(..., help="Markdown folder")
 ):
     """
-    Rebuild database and immediately start chat.
+    Rebuild a named database and immediately start chat.
     """
-    db = VectorDB()
-    db.build(path)
+    db = VectorDB(db_name)
 
-    typer.secho("\n🚀 Starting chat...\n", fg=typer.colors.GREEN)
+    typer.echo(f"🔄 Rebuilding database '{db_name}'...")
+    db.build(markdown_path)
 
-    agent = RAGAgent()
+    typer.secho("✅ Build complete. Starting chat...\n", fg=typer.colors.GREEN)
+
+    agent = RAGAgent(db=db)
     agent.chat()
 
 
@@ -90,16 +87,55 @@ def rebuild_and_chat(
 # INSPECT DB
 # ---------------------------
 @app.command()
-def stats():
+def stats(
+    db_name: str = typer.Argument(None, help="Database name (optional)")
+):
     """
-    Show database stats.
+    Show stats for one or all databases.
     """
-    db = VectorDB()
-    db.load()
+    from config import DB_BASE_DIR
 
-    typer.echo("📊 Database Stats:")
-    typer.echo(f"Total chunks: {len(db.metadata)}")
+    if db_name:
+        db = VectorDB(db_name)
+        db.load()
 
+        typer.echo(f"📊 Stats for '{db_name}':")
+        typer.echo(f"Chunks: {len(db.metadata)}")
+        typer.echo(f"Location: {db.db_path}")
+
+    else:
+        typer.echo("📊 All databases:\n")
+
+        for db_path in DB_BASE_DIR.iterdir():
+            if db_path.is_dir():
+                name = db_path.name
+
+                try:
+                    db = VectorDB(name)
+                    db.load()
+                    typer.echo(f"• {name}: {len(db.metadata)} chunks")
+                except Exception:
+                    typer.echo(f"• {name}: ⚠️ corrupted or incomplete")
+
+
+@app.command()
+def list():
+    """
+    List all available databases.
+    """
+    from config import DB_BASE_DIR
+
+    typer.echo("📚 Available databases:\n")
+
+    found = False
+    for db_path in DB_BASE_DIR.iterdir():
+        if db_path.is_dir():
+            typer.echo(f"• {db_path.name}")
+            found = True
+
+    if not found:
+        typer.echo("No databases found. Use `raqa build` first.")
+        
 
 if __name__ == "__main__":
     app()

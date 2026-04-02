@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "raqa"
-version = "0.0.1"
+version = "1.0.0"
 authors = [
   { name="Jordi Carrera Ventura", email="jordi.carrera.ventura@gmail.com" },
 ]
@@ -28,7 +28,7 @@ dependencies = [
 ]
 
 [project.urls]
-"GitHub repository" = "https://github.com"
+"GitHub repository" = "https://github.com/JordiCarreraVentura/raqa"
 
 [project.scripts]
 raqa = "raqa.cli:app"

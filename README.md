@@ -22,11 +22,11 @@ pip install raqa
 
 1. Build DB
 
-    `python cli.py build --path ./docs`
+    `python cli.py build DATABASE_NAME PATH/TO/FOLDER/WITH/MARKDOWNS`
 
 2. Chat
 
-    `python cli.py chat`
+    `python cli.py chat DATABASE_NAME`
 
 3. One-shot retrieval
 
@@ -34,20 +34,26 @@ pip install raqa
 
 4. Rebuild and chat
 
-    `python cli.py rebuild-and-chat`
+    `python cli.py rebuild-and-chat DATABASE_NAME PATH/TO/FOLDER/WITH/MARKDOWNS`
 
 5. Get stats
 
     `python cli.py stats`
 
+6. List databases
+
+    `python cli.py list`
+
+
 ### BASH natively
 
 ```
-raqa build --path ./markdown_files
-raqa chat
+raqa build DATABASE_NAME PATH/TO/FOLDER/WITH/MARKDOWNS
+raqa chat DATABASE_NAME
 raqa search "what is RAG?"
-raqa stats
-raqa rebuild-and-chat
+raqa list
+raqa stats (DATABASE_NAME)
+raqa rebuild-and-chat DATABASE_NAME PATH/TO/FOLDER/WITH/MARKDOWNS
 ```
 
 

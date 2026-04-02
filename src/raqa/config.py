@@ -3,12 +3,14 @@ from pathlib import Path
 # User folder for raqa configs
 HOME = Path.home()
 RAQA_HOME = HOME / ".raqa"
+RAQA_HOME.mkdir(parents=True, exist_ok=True)
 
 # OpenAI credential file
 ENV_FILE = RAQA_HOME / "env"
 
-# Database folder (moved from project data)
-DATA_DIR = RAQA_HOME / "data"
+# Default DB base folder (databases will be subfolders)
+DB_BASE_DIR = RAQA_HOME / "databases"
+DB_BASE_DIR.mkdir(parents=True, exist_ok=True)
 
 # Embeddings & chunk config
 EMBEDDING_MODEL = "joeddav/xlm-roberta-large-xnli"
@@ -21,4 +23,3 @@ MARKDOWN_ROOT = "./markdown_files"
 
 # Ensure directories exist
 RAQA_HOME.mkdir(parents=True, exist_ok=True)
-DATA_DIR.mkdir(parents=True, exist_ok=True)

@@ -4,10 +4,8 @@ from .db import VectorDB
 from .utils import get_openai_key
 
 class RAGAgent:
-    def __init__(self):
-        self.db = VectorDB()
-        self.db.load()
-
+    def __init__(self, db: VectorDB):
+        self.db = db
         api_key = get_openai_key()
         self.client = OpenAI(api_key=api_key)
 

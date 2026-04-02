@@ -11,6 +11,12 @@ VENV_NAME := environments/$(GIT_BRANCH)
 PY := $(VENV_NAME)/bin/python
 PYTHON_VERSION := 3.14.3
 
+# Load the .env file
+ifneq ("$(wildcard .env)","")
+    include .env
+    export $(shell sed 's/=.*//' .env)
+endif
+
 setup:
 	for folder in environments data ; \
 		do if [ ! -e $$folder ] ; then mkdir $$folder ; fi ; \
@@ -32,6 +38,10 @@ check-env:
 
 install:
 	$(PY) -m pip install -r requirements.txt
+
+publish:
+	python -m build
+	python -m twine upload --repository pypi dist/* -u __token__ -p $(PYPI_TOKEN)
 
 clean:
 	rm -rf __pycache__
