@@ -81,13 +81,13 @@ agent.chat()
 
 ## Build instructions
 
-Next steps:
-
 1. If any changes are made, update `pyproject.toml`.
 2. Building the package before uploading:
     `cd raqa; python -m build`.
 3. Upload the package to pypi:
     `python -m twine upload --repository {pypi|testpypi} dist/*`
+
+Steps 2 and 3 can be done automatically by running `make publish`.
 
 ## Next steps
 
