@@ -1,5 +1,7 @@
 from openai import OpenAI
-from utils import get_openai_key
+
+from .db import VectorDB
+from .utils import get_openai_key
 
 class RAGAgent:
     def __init__(self):

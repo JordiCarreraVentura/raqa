@@ -3,9 +3,7 @@ import re
 from pathlib import Path
 from typing import List
 
-from config import ENV_FILE
-
-
+from .config import ENV_FILE
 
 def split_sentences(text: str) -> List[str]:
     # simple but effective

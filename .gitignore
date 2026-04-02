@@ -9,3 +9,6 @@ src/raqa.egg-info/*
 
 # Python cache
 src/raqa/__pycache__/*
+
+# Credentials
+.env

@@ -7,8 +7,10 @@ import numpy as np
 import frontmatter
 from sentence_transformers import SentenceTransformer
 
-from utils import split_sentences, window_chunks
-from config import *
+from .utils import split_sentences, window_chunks
+from .config import *
+
+os.environ["TOKENIZERS_PARALLELISM"] = True
 
 
 class VectorDB:

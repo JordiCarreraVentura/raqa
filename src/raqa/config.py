@@ -11,7 +11,7 @@ ENV_FILE = RAQA_HOME / "env"
 DATA_DIR = RAQA_HOME / "data"
 
 # Embeddings & chunk config
-EMBEDDING_MODEL = "sentence-transformers/xlm-roberta-large-xnli"
+EMBEDDING_MODEL = "joeddav/xlm-roberta-large-xnli"
 CHUNK_WINDOW = 3
 TOP_K = 50
 SIMILARITY_RADIUS = 0.4

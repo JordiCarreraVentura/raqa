@@ -1,9 +1,9 @@
 import typer
 from typing import Optional
 
-from db import VectorDB
-from agent import RAGAgent
-from config import MARKDOWN_ROOT
+from .db import VectorDB
+from .agent import RAGAgent
+from .config import MARKDOWN_ROOT
 
 app = typer.Typer(help="📚 Markdown RAG CLI")
 
