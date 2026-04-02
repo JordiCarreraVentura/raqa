@@ -29,6 +29,7 @@ dependencies = [
 
 [project.urls]
 "GitHub repository" = "https://github.com/JordiCarreraVentura/raqa"
+"PyPI" = "https://pypi.org/project/raqa"
 
 [project.scripts]
 raqa = "raqa.cli:app"
