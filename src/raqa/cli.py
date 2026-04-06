@@ -1,9 +1,14 @@
-import typer
+import os
 from typing import Optional
+
+import typer
 
 from .db import VectorDB
 from .agent import RAGAgent
-from .config import MARKDOWN_ROOT
+from .config import (
+    DB_BASE_DIR,
+    MARKDOWN_ROOT
+)
 
 app = typer.Typer(help="📚 Markdown RAG CLI")
 
@@ -26,18 +31,19 @@ def build(
 # ---------------------------
 @app.command()
 def search(
+    db_name: str = typer.Argument(..., help="Database name to search within"),
     query: str = typer.Argument(..., help="Search query"),
     k: int = typer.Option(10, help="Top K results")
 ):
     """
     Run retrieval without LLM (debugging).
     """
-    db = VectorDB()
+    db = VectorDB(db_name=db_name)
     db.load()
 
     results = db.search(query, k=k)
 
-    typer.secho("\n🔎 Raw Results:\n", fg=typer.colors.BLUE)
+    typer.secho(f"\n🔎 Raw Results for '{db_name}':\n", fg=typer.colors.BLUE)
 
     for i, r in enumerate(results):
         typer.echo(f"\n--- Result {i+1} ---")
@@ -51,13 +57,13 @@ def search(
 # ---------------------------
 @app.command()
 def chat(
-    db_name: str = typer.Argument("default", help="Database to use")
+    db_name: str = typer.Argument("default", help="Database name to use")
 ):
     """Start a chat using a specific database"""
     db = VectorDB(db_name=db_name)
     db.load()
 
-    agent = RAGAgent(db=db)  # modify RAGAgent to accept a db instance
+    agent = RAGAgent(db=db)
     agent.chat()
 
 
@@ -72,7 +78,9 @@ def rebuild_and_chat(
     """
     Rebuild a named database and immediately start chat.
     """
-    db = VectorDB(db_name)
+    from .config import DB_EMBEDDINGS_CACHE
+    os.remove(DB_EMBEDDINGS_CACHE)
+    db = VectorDB(db_name=db_name)
 
     typer.echo(f"🔄 Rebuilding database '{db_name}'...")
     db.build(markdown_path)
@@ -93,8 +101,6 @@ def stats(
     """
     Show stats for one or all databases.
     """
-    from config import DB_BASE_DIR
-
     if db_name:
         db = VectorDB(db_name)
         db.load()
@@ -123,7 +129,8 @@ def list():
     """
     List all available databases.
     """
-    from config import DB_BASE_DIR
+    # Fixed relative import for consistency
+    from .config import DB_BASE_DIR
 
     typer.echo("📚 Available databases:\n")
 
