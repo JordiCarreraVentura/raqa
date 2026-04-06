@@ -30,7 +30,7 @@ pip install raqa
 
 3. One-shot retrieval
 
-    `python cli.py search "what is retrieval augmented generation?"`
+    `python cli.py search DATABASE_NAME "what is retrieval augmented generation?"`
 
 4. Rebuild and chat
 
@@ -50,8 +50,8 @@ pip install raqa
 ```
 raqa build DATABASE_NAME PATH/TO/FOLDER/WITH/MARKDOWNS
 raqa chat DATABASE_NAME
-raqa search "what is RAG?"
-raqa list
+raqa search DATABASE_NAME "what is RAG?"
+raqa list (DATABASE_NAME)
 raqa stats (DATABASE_NAME)
 raqa rebuild-and-chat DATABASE_NAME PATH/TO/FOLDER/WITH/MARKDOWNS
 ```
