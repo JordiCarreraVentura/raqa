@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "raqa"
-version = "1.0.2"
+version = "3.0.1"
 authors = [
   { name="Jordi Carrera Ventura", email="jordi.carrera.ventura@gmail.com" },
 ]
-description = ""
+description = "RAG-powered document Q&A — Streamlit + OpenAI Agents SDK"
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [
@@ -17,14 +17,11 @@ classifiers = [
 ]
 dependencies = [
   "build",
-  "faiss-cpu",
-  "joblib",
   "numpy",
   "openai",
-  "python-frontmatter",
-  "sentence-transformers",
-  "tqdm",
-  "typer[all]",
+  "openai-agents",
+  "python-dotenv",
+  "streamlit",
   "twine"
 ]
 
@@ -32,5 +29,8 @@ dependencies = [
 "GitHub repository" = "https://github.com/JordiCarreraVentura/raqa"
 "PyPI" = "https://pypi.org/project/raqa"
 
+[tool.setuptools.package-data]
+raqa = ["_sample/*"]
+
 [project.scripts]
-raqa = "raqa.cli:app"
+raqa = "raqa.cli:main"

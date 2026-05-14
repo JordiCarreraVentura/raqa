@@ -9,7 +9,6 @@ GIT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 # The name of your expected environment folder (based on branch)
 VENV_NAME := environments/$(GIT_BRANCH)
 PY := $(VENV_NAME)/bin/python
-PYTHON_VERSION := 3.14.3
 
 # Load environment variables from .env
 ifneq ("$(wildcard .env)","")
@@ -22,39 +21,36 @@ setup:
 		do if [ ! -e $$folder ] ; then mkdir $$folder ; fi ; \
 	done ;
 
-env:
+env: setup
 	if [ -e $(VENV_NAME) ] ; then rm -r $(VENV_NAME) ; fi
-	virtualenv -p $(PYTHON_VERSION) $(VENV_NAME) ; \
+	virtualenv $(VENV_NAME) ; \
 	$(MAKE) install
 
-check-env:
-	@if [ `which python | grep "$(VENV_NAME)" | wc -l` -eq 1 ]; then \
-		echo "Virtual environment detected for branch $(GIT_BRANCH)."; \
-	else \
-		echo "Virtual environment not detected."; \
-		echo "Please activate it by running: source $(VENV_NAME)/bin/activate"; \
-		exit 1; \
-	fi
-
 install:
-	$(PY) -m pip install -r requirements.txt
+	$(PY) -m pip install -e .
 
-build:
+run:
+	$(PY) -m raqa
+
+sync-data:
+	@mkdir -p src/raqa/_sample
+	@cp data/* src/raqa/_sample/
+
+build: sync-data
 	@echo "Cleaning old builds..."
-	rm -rf raqa/dist/ raqa/build/ raqa/*.egg-info
-	@echo "Building package in raqa/..."
+	rm -rf dist/ build/ *.egg-info src/*.egg-info
+	@echo "Building package..."
 	$(PY) -m build
 
-# 4. Upload to official PyPI
 push:
 	$(PY) -m twine upload --repository pypi dist/* -u __token__ -p $(PYPI_TOKEN)
 
 publish: build push
 
 clean:
-	rm -rf __pycache__
-	rm -f data/*
+	rm -rf __pycache__ src/raqa/__pycache__ .pytest_cache
+	rm -rf dist/ build/ *.egg-info src/*.egg-info
 
-all: env install
+all: env install run
 
-full: clean env install
+full: clean all
