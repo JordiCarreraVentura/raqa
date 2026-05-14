@@ -36,24 +36,26 @@ check-env:
 	fi
 
 install:
-	$(PY) -m pip install -r requirements.txt
+	$(PY) -m pip install -e .
+
+run:
+	$(PY) -m raqa
 
 build:
 	@echo "Cleaning old builds..."
-	rm -rf raqa/dist/ raqa/build/ raqa/*.egg-info
-	@echo "Building package in raqa/..."
+	rm -rf dist/ build/ *.egg-info src/*.egg-info
+	@echo "Building package..."
 	$(PY) -m build
 
-# 4. Upload to official PyPI
 push:
 	$(PY) -m twine upload --repository pypi dist/* -u __token__ -p $(PYPI_TOKEN)
 
 publish: build push
 
 clean:
-	rm -rf __pycache__
-	rm -f data/*
+	rm -rf __pycache__ src/raqa/__pycache__ .pytest_cache
+	rm -rf dist/ build/ *.egg-info src/*.egg-info
 
-all: env install
+all: env install run
 
-full: clean env install
+full: clean all

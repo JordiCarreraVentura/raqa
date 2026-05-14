@@ -1,6 +1,7 @@
-build
-joblib
 openai
-# tqdm
-# typer[all]
+openai-agents
+streamlit
+numpy
+python-dotenv
+build
 twine

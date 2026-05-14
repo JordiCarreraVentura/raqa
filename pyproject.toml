@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "raqa"
-version = "1.0.2"
+version = "3.0.0"
 authors = [
   { name="Jordi Carrera Ventura", email="jordi.carrera.ventura@gmail.com" },
 ]
-description = ""
+description = "RAG-powered document Q&A — Streamlit + OpenAI Agents SDK"
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [
@@ -16,6 +16,11 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
+  "openai",
+  "openai-agents",
+  "streamlit",
+  "numpy",
+  "python-dotenv",
 ]
 
 [project.urls]
@@ -23,4 +28,4 @@ dependencies = [
 "PyPI" = "https://pypi.org/project/raqa"
 
 [project.scripts]
-raqa = "raqa.cli:app"
+raqa = "raqa.cli:main"
