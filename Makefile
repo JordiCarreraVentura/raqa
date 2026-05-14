@@ -9,7 +9,6 @@ GIT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 # The name of your expected environment folder (based on branch)
 VENV_NAME := environments/$(GIT_BRANCH)
 PY := $(VENV_NAME)/bin/python
-PYTHON_VERSION := 3.14.3
 
 # Load environment variables from .env
 ifneq ("$(wildcard .env)","")
@@ -24,7 +23,7 @@ setup:
 
 env:
 	if [ -e $(VENV_NAME) ] ; then rm -r $(VENV_NAME) ; fi
-	virtualenv -p $(PYTHON_VERSION) $(VENV_NAME) ; \
+	virtualenv $(VENV_NAME) ; \
 	$(MAKE) install
 
 check-env:
