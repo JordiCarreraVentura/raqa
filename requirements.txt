@@ -1,11 +1,6 @@
 build
-faiss-cpu
 joblib
-numpy
 openai
-python-frontmatter
-sentence-transformers
-snippyts
-tqdm
-typer[all]
+# tqdm
+# typer[all]
 twine

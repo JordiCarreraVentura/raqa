@@ -16,16 +16,6 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-  "build",
-  "faiss-cpu",
-  "joblib",
-  "numpy",
-  "openai",
-  "python-frontmatter",
-  "sentence-transformers",
-  "tqdm",
-  "typer[all]",
-  "twine"
 ]
 
 [project.urls]

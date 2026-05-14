@@ -13,6 +13,7 @@ src/raqa/__pycache__/*
 
 # Credentials
 .env
+secrets.txt
 
 # Local notes and documentation
 doc/original_plan.txt
