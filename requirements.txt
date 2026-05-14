@@ -1,7 +1,7 @@
+build
+numpy
 openai
 openai-agents
-streamlit
-numpy
 python-dotenv
-build
+streamlit
 twine

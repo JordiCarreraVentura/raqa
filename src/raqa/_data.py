@@ -4,12 +4,22 @@ from pathlib import Path
 from typing import List, Dict
 
 
+_BUNDLED = Path(__file__).parent / "_sample"
+
+
+def _resolve_dir(user_dir: str) -> Path:
+    path = Path(user_dir)
+    if path.exists() and any(path.iterdir()):
+        return path
+    if _BUNDLED.exists() and any(_BUNDLED.iterdir()):
+        print(f"📦 No data in '{user_dir}', using bundled sample data.")
+        return _BUNDLED
+    return path
+
+
 def load_documents(data_dir: str = "data") -> List[Dict]:
     chunks = []
-    data_path = Path(data_dir)
-    if not data_path.exists():
-        print(f"⚠️  Data directory '{data_dir}' not found.")
-        return chunks
+    data_path = _resolve_dir(data_dir)
 
     for path in sorted(data_path.rglob("*")):
         if path.suffix == ".md":

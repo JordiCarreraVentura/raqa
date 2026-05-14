@@ -16,16 +16,21 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
+  "build",
+  "numpy",
   "openai",
   "openai-agents",
-  "streamlit",
-  "numpy",
   "python-dotenv",
+  "streamlit",
+  "twine"
 ]
 
 [project.urls]
 "GitHub repository" = "https://github.com/JordiCarreraVentura/raqa"
 "PyPI" = "https://pypi.org/project/raqa"
+
+[tool.setuptools.package-data]
+raqa = ["_sample/*"]
 
 [project.scripts]
 raqa = "raqa.cli:main"

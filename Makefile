@@ -21,19 +21,10 @@ setup:
 		do if [ ! -e $$folder ] ; then mkdir $$folder ; fi ; \
 	done ;
 
-env:
+env: setup
 	if [ -e $(VENV_NAME) ] ; then rm -r $(VENV_NAME) ; fi
 	virtualenv $(VENV_NAME) ; \
 	$(MAKE) install
-
-check-env:
-	@if [ `which python | grep "$(VENV_NAME)" | wc -l` -eq 1 ]; then \
-		echo "Virtual environment detected for branch $(GIT_BRANCH)."; \
-	else \
-		echo "Virtual environment not detected."; \
-		echo "Please activate it by running: source $(VENV_NAME)/bin/activate"; \
-		exit 1; \
-	fi
 
 install:
 	$(PY) -m pip install -e .
@@ -41,7 +32,11 @@ install:
 run:
 	$(PY) -m raqa
 
-build:
+sync-data:
+	@mkdir -p src/raqa/_sample
+	@cp data/* src/raqa/_sample/
+
+build: sync-data
 	@echo "Cleaning old builds..."
 	rm -rf dist/ build/ *.egg-info src/*.egg-info
 	@echo "Building package..."
